@@ -17,9 +17,10 @@ app.use(function(req, res, next) {
 });
 
 app.post('/getPastEvents', async (request, response) => {
-  const { infuraUrl, address, event, abi, filters } = request.body;
+  const { infuraUrl, address, event, abi, filters, start, end } = request.body;
   const data = await getPastEvents(infuraUrl, address, event, abi, filters);
-  response.json(data);
+  const citizens = data.slice(start, end);
+  response.json({ citizens, total: data.length });
 });
 
 app.post('/getCitizenById', async (request, response) => {
@@ -36,8 +37,7 @@ async function getCitizenById(infuraUrl, address, abi, id) {
     .call()
     .then(response => {
       return response;
-    })
-    .catch(err => err);
+    });
 }
 
 async function getPastEvents(infuraUrl, address, event, abi, filters) {
@@ -47,8 +47,7 @@ async function getPastEvents(infuraUrl, address, event, abi, filters) {
     .getPastEvents(event, filters)
     .then(response => {
       return response;
-    })
-    .catch(err => err);
+    });
 }
 
 // listen for requests :)
