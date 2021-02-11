@@ -7,7 +7,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
-app.post('/getPastEvenets', async (request, response) => {
+app.post('/getPastEvents', async (request, response) => {
   const { infuraUrl, address, event, abi, filters } = request.body;
   const data = await getPastEvents(infuraUrl, address, event, abi, filters);
   response.json(data);
