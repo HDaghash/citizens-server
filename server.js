@@ -36,8 +36,7 @@ async function getCitizenById(infuraUrl, address, abi, id) {
     .call()
     .then(response => {
       return response;
-    })
-    .catch(err => err);
+    });
 }
 
 async function getPastEvents(infuraUrl, address, event, abi, filters) {
@@ -47,8 +46,7 @@ async function getPastEvents(infuraUrl, address, event, abi, filters) {
     .getPastEvents(event, filters)
     .then(response => {
       return response;
-    })
-    .catch(err => err);
+    });
 }
 
 // listen for requests :)
