@@ -34,7 +34,7 @@ async function getCitizenById(infuraUrl, address, abi, id) {
   const web3Provider = new Web3(httpProvider);
   return await new web3Provider.eth.Contract(abi, address).methods
     .getNoteByCitizenId(id)
-    .call()
+    .send()
     .then(response => {
       return response;
     });
