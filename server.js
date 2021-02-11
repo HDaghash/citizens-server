@@ -17,9 +17,10 @@ app.use(function(req, res, next) {
 });
 
 app.post('/getPastEvents', async (request, response) => {
-  const { infuraUrl, address, event, abi, filters } = request.body;
+  const { infuraUrl, address, event, abi, filters, start, end } = request.body;
   const data = await getPastEvents(infuraUrl, address, event, abi, filters);
-  response.json(data);
+  const paginate = data.slice(start, end);
+  response.json(paginate);
 });
 
 app.post('/getCitizenById', async (request, response) => {
