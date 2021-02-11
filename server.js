@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
 app.post('/getPastEvents', async (request, response) => {
   const { infuraUrl, address, event, abi, filters, start, end } = request.body;
   const data = await getPastEvents(infuraUrl, address, event, abi, filters);
-  const citizens = data.slice(start, end);
+  const citizens = data.reverse().slice(start, end);
   response.json({ citizens, total: data.length });
 });
 
