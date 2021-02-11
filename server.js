@@ -23,18 +23,18 @@ app.post('/getPastEvents', async (request, response) => {
   response.json({ citizens, total: data.length });
 });
 
-app.post('/getCitizenById', async (request, response) => {
+app.post('/getCitizenNoteById', async (request, response) => {
   const { infuraUrl, address, abi, id } = request.body;
-  const data = await getCitizenById(infuraUrl, address, abi, id);
+  const data = await getCitizenNoteById(infuraUrl, address, abi, id);
   response.json(data);
 });
 
-async function getCitizenById(infuraUrl, address, abi, id) {
+async function getCitizenNoteById(infuraUrl, address, abi, id) {
   const httpProvider = new Web3.providers.HttpProvider(infuraUrl);
   const web3Provider = new Web3(httpProvider);
   return await new web3Provider.eth.Contract(abi, address).methods
     .getNoteByCitizenId(id)
-    .send()
+    .call()
     .then(response => {
       return response;
     });
